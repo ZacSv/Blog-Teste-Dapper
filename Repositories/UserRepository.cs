@@ -6,69 +6,49 @@ namespace Blog.Repositories
     
     public class UserRepository
     {
-        private const string CONNECTION_STRING = @"Server=localhost,1433;Database=BLOG;User ID=sa;Password=1q2w3e4r@#$;TrustServerCertificate=true";
-        public void ReadUser()
-        {
-            using(var connection = new SqlConnection(CONNECTION_STRING))
-            {
-                var user = connection.Get<User>(1);
-                Console.WriteLine(user.Name);
-            }
-        }   
+        private readonly SqlConnection _connection;
+
+        public UserRepository(SqlConnection connection)
+            => _connection = connection;
+
+
+        public void ReadUser(int id)
+            => _connection.Get<User>(id);
+
         public IEnumerable<User> Get()
+            => _connection.GetAll<User>();
+        
+        public void CreateUser(User user)
         {
-            using(var connection = new SqlConnection(CONNECTION_STRING))
+            user.Id = 0;
+            _connection.Insert<User>(user); 
+        }
+            
+       
+        public void UpdateUser(User user)
+        {
+            if(user.Id != 0)
             {
-                return connection.GetAll<User>();
-               
+                _connection.Update<User>(user);
             }
         }
-        public void CreateUser()
+       
+        public void DeleteUser(User user)
         {
-            var user = new User()
+            if(user.Id != 0)
             {
-                Name = "Juscelino",
-                Bio = "Teste de Bio",
-                Email = "juscelinodasgata@gmail.com",
-                HashPassword = "HASH",
-                Image = "Sem-Image",
-                Slug = "juscelino-dasgatas"
-            };
-            using(var connection = new SqlConnection(CONNECTION_STRING))
-            {
-                connection.Insert<User>(user);
-                var idUser = user.Id;
-                var busca_no_banco = connection.Get<User>(idUser);
-                Console.WriteLine($"Usuário: {busca_no_banco.Name} inserido no banco com sucesso");
+                _connection.Delete<User>(user);
             }
-        }  
-        public void UpdateUser()
+        }
+        public void DeleteUser(int id) //Sobrecarga visando situação aonde só se insira o ID para o método 'delete'
         {
-             var user = new User()
-                {
-                    Id = 2,
-                    Name = "Isac",
-                    Bio = "Testando a bio",
-                    Email = "isac@gmail.com",
-                    HashPassword = "HASH",
-                    Image = "https",
-                    Slug = "isac"
-                };
+            if(id != 0)
+            {
+                return;
+            }
+            var user = _connection.Get<User>(id);
+            _connection.Delete<User>(user);
+        }
 
-            using(var connection = new SqlConnection(CONNECTION_STRING))
-            {
-               connection.Update<User>(user);
-               Console.WriteLine("Alteração salva");
-            }
-        } 
-        public void DeleteUser()
-        {
-            using(var connection = new SqlConnection(CONNECTION_STRING))
-            {
-                var user = connection.Get<User>(1);
-                connection.Delete<User>(user);
-                Console.WriteLine($"Usuário deletado no banco com sucesso");
-            }
-        } 
     }
 }
