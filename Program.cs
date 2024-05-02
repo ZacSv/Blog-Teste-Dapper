@@ -12,13 +12,8 @@ namespace Blog
         static void Main(string[] args)
         {
             var _connection = new SqlConnection(CONNECTION_STRING);
-            var repositorios = new UserRepository(_connection);
-            
-        }
-
-        
-      
-        
+            var repoUser = new Repository<Tag>(_connection);      
+        }   
     }
 }
 
