@@ -7,7 +7,7 @@ namespace Blog.Models
     {
 
         public User()
-            => Roles = new List<Role>();
+            => Roles = new List<Role>(); //A lista deve ser inicializada no construtor para evitar erro no momento da consulta com o banco
         
 
         public int Id { get; set; }
