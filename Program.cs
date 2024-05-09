@@ -1,6 +1,8 @@
-﻿
+﻿using Blog.Models;
 using Microsoft.Data.SqlClient;
 using Blog.Screens.UserScreens;
+using Blog.Repositories;
+using System.Runtime.InteropServices;
 namespace Blog
 {
 
@@ -11,7 +13,7 @@ namespace Blog
         {
             Database.Connection = new SqlConnection(CONNECTION_STRING);
             Database.Connection.Open();
-
+            
             Load();
 
             Console.ReadKey();
@@ -33,7 +35,6 @@ namespace Blog
             Console.WriteLine("5 - Vincular perfil/usuário");
             Console.WriteLine("6 - Vincular post/tag");
             Console.WriteLine("7 - Relatórios");
-            Console.WriteLine();
             Console.WriteLine();
             var option = short.Parse(Console.ReadLine()!);
 

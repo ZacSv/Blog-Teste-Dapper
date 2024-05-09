@@ -18,7 +18,10 @@ namespace Blog.Screens.UserScreens
             var option = short.Parse(Console.ReadLine()!);
 
             switch(option)
-            {
+            {   
+                case 1:
+                    CreateUserScreen.Load();
+                    break;
                 case 4: 
                     ListUserScreen.Load();
                     break;

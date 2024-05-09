@@ -1,3 +1,4 @@
+using Blog.Models;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
 
@@ -13,7 +14,9 @@ namespace Blog.Repositories
         public IEnumerable<TModel> GetAll()
             => _connection.GetAll<TModel>();    
         public void Get(int id)
-            => _connection.Get<TModel>(id);
+            => _connection.Get<User>(id);
+        public User GetDetalhado(int id)
+            => _connection.Get<User>(id);
 
         public void Create(TModel model)
            => _connection.Insert<TModel>(model); 
