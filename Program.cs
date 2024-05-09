@@ -1,8 +1,6 @@
-﻿using System;
+﻿
 using Microsoft.Data.SqlClient;
-using Blog.Models;
-using Dapper.Contrib.Extensions;
-using Blog.Repositories;
+using Blog.Screens.UserScreens;
 namespace Blog
 {
 
@@ -11,19 +9,45 @@ namespace Blog
         private const string CONNECTION_STRING = @"Server=localhost,1433;Database=BLOG;User ID=sa;Password=1q2w3e4r@#$;TrustServerCertificate=true";
         static void Main(string[] args)
         {
-            var _connection = new SqlConnection(CONNECTION_STRING);
-            var repo = new UserRepository(_connection);
-            var items = repo.ReadWithRoles();
-            foreach(var item in items)
-            {
-                Console.WriteLine($"User:{item.Name}");
+            Database.Connection = new SqlConnection(CONNECTION_STRING);
+            Database.Connection.Open();
 
-                foreach(var role in item.Roles)
-                {
-                    Console.WriteLine($"Role: {role.Name}");
-                }
-            }  
+            Load();
+
+            Console.ReadKey();
+            Database.Connection.Close();
+ 
         }   
+
+        private static void Load()
+        {
+            Console.Clear();
+            Console.WriteLine("Meu blog");
+            Console.WriteLine("--------------------");
+            Console.WriteLine("Selecione a opção desejada");
+            Console.WriteLine();
+            Console.WriteLine("1 - Gestão de usuários");
+            Console.WriteLine("2 - Gestão de perfil");
+            Console.WriteLine("3 - Gestão de categoria");
+            Console.WriteLine("4 - Gestão de tags");
+            Console.WriteLine("5 - Vincular perfil/usuário");
+            Console.WriteLine("6 - Vincular post/tag");
+            Console.WriteLine("7 - Relatórios");
+            Console.WriteLine();
+            Console.WriteLine();
+            var option = short.Parse(Console.ReadLine()!);
+
+            switch(option)
+            {
+                case 1: 
+                    MenuUserScreen.Load();
+                    break;
+                default:
+                    Load();
+                    break;
+            }
+
+        }
     }
 }
 
