@@ -1,8 +1,7 @@
-﻿using Blog.Models;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Blog.Screens.UserScreens;
-using Blog.Repositories;
-using System.Runtime.InteropServices;
+using Blog.Screens.PerfilScreens;
+using Blog.Screens.PostScreens;
 namespace Blog
 {
 
@@ -21,7 +20,7 @@ namespace Blog
  
         }   
 
-        private static void Load()
+        public static void Load()
         {
             Console.Clear();
             Console.WriteLine("Meu blog");
@@ -32,9 +31,10 @@ namespace Blog
             Console.WriteLine("2 - Gestão de perfil");
             Console.WriteLine("3 - Gestão de categoria");
             Console.WriteLine("4 - Gestão de tags");
-            Console.WriteLine("5 - Vincular perfil/usuário");
-            Console.WriteLine("6 - Vincular post/tag");
-            Console.WriteLine("7 - Relatórios");
+            Console.WriteLine("5 - Gestão de posts");
+            Console.WriteLine("6 - Vincular perfil/usuário");
+            Console.WriteLine("7 - Vincular post/tag");
+            Console.WriteLine("8 - Relatórios");
             Console.WriteLine();
             var option = short.Parse(Console.ReadLine()!);
 
@@ -42,6 +42,12 @@ namespace Blog
             {
                 case 1: 
                     MenuUserScreen.Load();
+                    break;
+                case 2: 
+                    MenuPerfilScreen.Load();
+                    break;
+                case 5: 
+                    MenuPostScreen.Load();
                     break;
                 default:
                     Load();

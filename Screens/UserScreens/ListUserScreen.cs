@@ -22,25 +22,6 @@ namespace Blog.Screens.UserScreens
                 Console.WriteLine($"{user.Id} - {user.Name}"); 
             }
             
-            Console.WriteLine("Para acessar um usuário de forma detalhada tecle 1 ou qualquer outra tecla para sair");
-            var option = short.Parse(Console.ReadLine()!);
-            if (option == 1)
-            {
-                Console.WriteLine("Digite o id do usuário que deseja acessar (a lista está acima)");
-                var user = short.Parse(Console.ReadLine()!);
-                var teste = repositorio.GetDetalhado(user);
-                var perfis = teste.Roles;
-                Console.WriteLine($"ID: {teste.Id}");
-                Console.WriteLine($"Nome: {teste.Name}");
-                Console.WriteLine($"Bio: {teste.Bio}");
-                Console.WriteLine($"Email: {teste.Email}");
-                Console.WriteLine($"Slug: {teste.Slug}");
-                Console.WriteLine($"Perfis: {teste.Roles}");
-                foreach(var role in perfis)
-                {
-                    Console.WriteLine(role.Name);
-                }
-            }
         }
     }
 }
