@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Blog.Repositories
 {
+    //Repositorio especialista para retornar os perfis de um usuário
     public class UserRepository : Repository<User>
     {
         private readonly SqlConnection _connection;

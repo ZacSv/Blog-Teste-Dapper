@@ -23,6 +23,12 @@ namespace Blog.Screens.UserScreens
                 case 1:
                     CreateUserScreen.Load();
                     break;
+                case 2:
+                    UpdateUserScreen.Load();
+                    break;
+                case 3:
+                    DeleteUserScreen.Load();
+                    break;
                 case 4: 
                     ListUserScreen.Load();
                     break;
